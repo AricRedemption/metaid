@@ -127,6 +127,7 @@ export class BtcEntity {
   }: {
     dataArray: SubMetaidData[]
     options: {
+      path?: string
       noBroadcast: T
       feeRate?: number
       service?: {
@@ -136,10 +137,10 @@ export class BtcEntity {
       network?: BtcNetwork
     }
   }): Promise<InscribeResultForIfBroadcasting[T]> {
-    const path = this.schema.path
+    const path = options?.path ?? this.schema.path
     // console.log('pin path', path)
     const res = await this.connector.inscribe({
-      inscribeDataArray: dataArray.map((d) => ({ ...d, operation: 'create', path })),
+      inscribeDataArray: dataArray.map((d) => ({ ...d, operation: 'create', path: d?.path ?? path })),
       options,
     })
 

@@ -78,7 +78,7 @@ export class MvcEntity {
       transactions?: Transaction[]
     }
   }) {
-    const path = this.schema.path
+    const path = data?.path ?? this.schema.path
     // console.log('pin path', path)
     const res = await this.connector.createPin({ ...data, operation: 'create', path }, options)
     console.log('res', res)
